@@ -14,4 +14,16 @@
         android:text="PROS"
         tools:layout_editor_absoluteX="108dp"
         tools:layout_editor_absoluteY="160dp" />
+
+    <GridView
+        android:id="@+id/gridPros"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="24dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="spacingWidthUniform"
+        />
 </LinearLayout>
