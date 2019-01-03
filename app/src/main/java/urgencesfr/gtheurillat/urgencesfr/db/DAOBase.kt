@@ -10,7 +10,7 @@ import android.util.Log
 
 abstract class DAOBase(pContext: Context) {
 
-    var db: SQLiteDatabase? = null
+    var mDb: SQLiteDatabase? = null
         protected set
 
     protected var mHandler: DbBaseHelper? = null
@@ -23,12 +23,12 @@ abstract class DAOBase(pContext: Context) {
     fun open(): SQLiteDatabase? {
         // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
         Log.e("DB", "GET WRITABLE DATABASE")
-        db = mHandler!!.writableDatabase
-        return db
+        mDb = mHandler!!.writableDatabase
+        return mDb
     }
 
     fun close() {
-        db!!.close()
+        mDb!!.close()
     }
 
     companion object {

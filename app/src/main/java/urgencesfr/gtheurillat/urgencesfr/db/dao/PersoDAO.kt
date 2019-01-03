@@ -29,8 +29,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
         value.put(PersoDAO.NUMBER, pso.number)
 
 
-
-        mDb.insert(PersoDAO.TABLE_NAME, null, value)
+        mDb!!.insert(PersoDAO.TABLE_NAME, null, value)
         close()
     }
 
@@ -40,7 +39,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
     fun supprimer(pso: Perso) {
         open()
         Log.e("DB", "DELETE ENTRY " + TABLE_NAME + " " + pso.id + " IN TABLE " + TABLE_NAME)
-        mDb.delete(TABLE_NAME, "$KEY = ?", arrayOf(pso.id.toString()))
+        mDb!!.delete(TABLE_NAME, "$KEY = ?", arrayOf(pso.id.toString()))
         close()
     }
 
@@ -50,7 +49,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
     fun supprimer(id: Long) {
         open()
         Log.e("DB", "DELETE ENTRY $TABLE_NAME $id IN TABLE $TABLE_NAME")
-        mDb.delete(TABLE_NAME, "$KEY = ?", arrayOf(id.toString()))
+        mDb!!.delete(TABLE_NAME, "$KEY = ?", arrayOf(id.toString()))
         close()
     }
 
@@ -65,7 +64,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
         value.put(NUMBER, pso.number)
 
 
-        mDb.update(TABLE_NAME, value, "$KEY = ?", arrayOf(pso.id.toString()))
+        mDb!!.update(TABLE_NAME, value, "$KEY = ?", arrayOf(pso.id.toString()))
         close()
     }
 
@@ -77,7 +76,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
         open()
 
         Log.e("DB", "GET ENTRY WITH URL $url IN TABLE $TABLE_NAME")
-        val cursor = mDb.rawQuery("select * from $TABLE_NAME where url='$url';", null)
+        val cursor = mDb!!.rawQuery("select * from $TABLE_NAME where url='$url';", null)
         var perso: Perso? = null
 
         if (cursor.moveToFirst()) {
@@ -100,7 +99,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
         open()
 
         Log.e("DB", "GET ENTRY WITH $NAME=$name IN TABLE $TABLE_NAME")
-        val cursor = mDb.rawQuery("select * from $TABLE_NAME where $NAME='$name';", null)
+        val cursor = mDb!!.rawQuery("select * from $TABLE_NAME where $NAME='$name';", null)
         var perso: Perso? = null
 
         if (cursor.moveToFirst()) {
@@ -119,7 +118,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
     fun selectionnerAll(): ArrayList<Perso> {
         Log.e("DB", "GET ALL ENTRIES IN TABLE $TABLE_NAME")
         open()
-        val cursor = mDb.rawQuery("select * from $TABLE_NAME;", null)
+        val cursor = mDb!!.rawQuery("select * from $TABLE_NAME;", null)
         val lstPersos = ArrayList<Perso>()
 
         if (cursor.moveToFirst()) {
@@ -145,8 +144,8 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
     companion object {
         val TABLE_NAME = "perso"
         val KEY = "ID"
-        val NAME = "NAME_SERIE"
-        val NUMBER = "NAME_CHAPTER"
+        val NAME = "NAME"
+        val NUMBER = "NUMBER"
 
 
         val METIER_TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" +
