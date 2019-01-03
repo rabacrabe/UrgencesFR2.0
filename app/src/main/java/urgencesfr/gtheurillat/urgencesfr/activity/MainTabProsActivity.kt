@@ -37,18 +37,20 @@ class MainTabProsActivity : Fragment() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        prosList.add(Pro("Police", "17",
-                R.drawable.police))
-        prosList.add(Pro("Pompier", "18",
-                R.drawable.pompier))
-        prosList.add(Pro("French Fires", "Heat a few inches of vegetable oil to 300 degrees F in a heavy pot. In 3 or 4 batches, fry the potatoes about 4 to 5 minutes per batch, or until soft. They should not be brown at all at this point-you just want to start the cooking process. Remove each batch and drain them on new, dry paper towels.",
-                R.drawable.samu))
-        prosList.add(Pro("Honey", "While it is less likely that anyone would do this on their own if they are not a beekeeper, this might be useful for those who aspire to become one. Bees are really great and easy to keep, even in the urban environment! As Novella Carpenter calls them, bees are &quot;gateway animal for urban farmers&quot;. All you need is some space in the backyard/deck. The process of honey harvesting and extraction most likely happens on a separate days.",
-                R.drawable.sos_medecin))
-        prosList.add(Pro("Strawberry", "Preparation. Coarsely mash strawberries with sugar, lemon juice, and salt using a potato masher in a large bowl. Let stand, stirring and mashing occasionally, 10 minutes. Transfer half of strawberry mixture to a blender and purée with cream until smooth. Freeze mixture in ice cream maker.",
-                R.drawable.sourds))
-        prosList.add(Pro("Sugar cubes", "Sugar cubes are extremely simple to make at home - all you need is sugar and water. In addition to standard cubes, you can add color and flavor to add fun flair to a tea party or another gathering. Learn how to make sugar cubes using two different methods: using a pan in the oven or an ice cube tray you leave out overnight.",
-                R.drawable.aeronautique))
+        prosList.add(Pro("Police", 17, R.drawable.police))
+        prosList.add(Pro("Pompier", 18, R.drawable.pompier))
+        prosList.add(Pro("Samu", 15, R.drawable.samu))
+        prosList.add(Pro("Samu Sociale", 115, R.drawable.samu_sociale))
+        prosList.add(Pro("Sos Medecin", 3624, R.drawable.sos_medecin))
+        prosList.add(Pro("Sourds et malentendants", 114, R.drawable.sourds))
+        prosList.add(Pro("Sauvetage Aeronautique", 191, R.drawable.aeronautique))
+        prosList.add(Pro("Alerte enlevement", 116000, R.drawable.alerte_enlevement))
+        //prosList.add(Pro("Attentat", 197, R.drawable.attentat))
+        prosList.add(Pro("Centre anti poison", 999, R.drawable.poisons))
+        prosList.add(Pro("Urgences Europeenne", 112, R.drawable.europe))
+        prosList.add(Pro("Enfant malraité", 119, R.drawable.enfant_maltraite))
+        prosList.add(Pro("Sauvetage Maritime", 196, R.drawable.maritime))
+        prosList.add(Pro("Violences conjugales", 3919, R.drawable.violences_conjugales))
 
 
     }
@@ -58,9 +60,9 @@ class MainTabProsActivity : Fragment() {
         val view = inflater!!.inflate(R.layout.activity_main_tab_pros, container, false)
 
         val titreTextView = view.findViewById(R.id.textView) as TextView
-        titreTextView.setText("CUSTOMS PERSOS")
+        //titreTextView.setText("CUSTOMS PERSOS")
 
-        val gridPros: GridView = view.findViewById(R.id.gridPros)
+        val gridPros: GridView = view.findViewById(R.id.gridPros) as GridView
 
         adapter = ProsAdapter(view.context, prosList)
 
