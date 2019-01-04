@@ -50,8 +50,8 @@ class ProsAdapter : BaseAdapter {
     }
 
     override fun getItemId(position: Int): Long {
-       // return getItem(position).number;
-        return 0
+       return getItem(position).number;
+        //return 0
     }
 
     // 5

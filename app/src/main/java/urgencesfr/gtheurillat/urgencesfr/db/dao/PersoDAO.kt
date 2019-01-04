@@ -21,7 +21,7 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
      */
     fun ajouter(pso: Perso) {
         open()
-        Log.e("DB", "ADD ENTRY " + TABLE_NAME + " " + pso.name + " IN TABLE " + TABLE_NAME)
+        Log.e("DB", "ADD ENTRY " + TABLE_NAME + " " + pso.name + "("+pso.number+") IN TABLE " + TABLE_NAME)
 
         val value = ContentValues()
 
@@ -71,12 +71,12 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
     /**
      * @param url l'identifiant du métier à récupérer
      */
-    fun selectionnerFromUrl(url: String): Perso? {
+    fun selectionnerFromName(name: String): Perso? {
 
         open()
 
-        Log.e("DB", "GET ENTRY WITH URL $url IN TABLE $TABLE_NAME")
-        val cursor = mDb!!.rawQuery("select * from $TABLE_NAME where url='$url';", null)
+        Log.e("DB", "GET ENTRY WITH NAME $name IN TABLE $TABLE_NAME")
+        val cursor = mDb!!.rawQuery("select * from $TABLE_NAME where name='$name';", null)
         var perso: Perso? = null
 
         if (cursor.moveToFirst()) {

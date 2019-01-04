@@ -9,7 +9,10 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import urgencesfr.gtheurillat.urgencesfr.adapter.MainTabAdapter
 import android.content.DialogInterface
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
+import android.view.Menu
+import android.view.MenuItem
 
 
 class TabActivity : AppCompatActivity() {
@@ -74,5 +77,32 @@ class TabActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu to use in the action bar
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle presses on the action bar menu items
+        when (item.itemId) {
+            R.id.action_about -> {
+                //Snackbar.make(, "Version: 3.0", Snackbar.LENGTH_LONG).setAction("A propos", null).show()
+                val builder_about = AlertDialog.Builder(this)
+
+                // Set the alert dialog title
+                builder_about.setTitle("A propos")
+                builder_about.setMessage("Version 2.0 (Janvier 2019). Developpeur: Gael THEURILLAT")
+                val dialog_about: AlertDialog = builder_about.create()
+
+                // Display the alert dialog on app interface
+                dialog_about.show()
+                return true
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
