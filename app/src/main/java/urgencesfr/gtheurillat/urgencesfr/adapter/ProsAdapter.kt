@@ -1,5 +1,7 @@
 package urgencesfr.gtheurillat.urgencesfr.adapter
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -22,12 +24,7 @@ import android.widget.Toast
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.content.DialogInterface
-
-
-
-
-
-
+import android.support.v4.app.ActivityCompat
 
 
 class ProsAdapter : BaseAdapter {
@@ -46,7 +43,7 @@ class ProsAdapter : BaseAdapter {
 
     // 3
     override fun getItem(position: Int): Pro {
-        return prosList[position]
+        return prosList.get(position)
     }
 
     override fun getItemId(position: Int): Long {
@@ -57,72 +54,37 @@ class ProsAdapter : BaseAdapter {
     // 5
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
-        val pro = this.prosList[position]
+        val pro : Pro = getItem(position)
 
-        var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        //var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        //var proView = inflator.inflate(R.layout.tab_pros_content, null)
 
-        var proView = inflator.inflate(R.layout.tab_pros_content, null)
+        val proView = LayoutInflater.from(context).inflate(R.layout.tab_pros_content, parent, false) as LinearLayout
 
-        if (convertView == null) {
+       // if (convertView == null) {
             proView.imgPro.setImageResource(pro.img!!)
             proView.namePro.text = pro.name!!
 
             proView.imgPro.setOnClickListener {
-                Toast.makeText(context, "You cancelled the dialog.", Toast.LENGTH_SHORT).show()// Initialize a new instance of
-                val builder = AlertDialog.Builder(context!!)
-
-                // Set the alert dialog title
-                builder.setTitle(pro.name + "("+pro.number+")")
-
-                // Display a message on alert dialog
-                builder.setMessage("Voulez vous vraiment contacter " + pro.name)
-
-                // Set a positive button and its click listener on alert dialog
-                builder.setPositiveButton("Oui, contacter"){dialog, which ->
-                    Toast.makeText(context, "Appel " + pro.number, Toast.LENGTH_SHORT).show()// Initialize a new instance of
-
-                    if (pro.number == 114.toLong()) {
-                        //sourds et malentendants
-                        if (ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                            displayAlertSourds(context!!, pro)
-                        } else {
-                            alert_error(context!!, "\"Vous n'avez pas autorisé cette application à envoyer des sms\"")
-                        }
+                if (pro.number == 114.toLong()) {
+                    //sourds et malentendants
+                    displayAlertSourds(context!!, pro)
+                }
+                else {
+                    if (pro.number == 999.toLong()) {
+                        //centre anti poison
+                        displayCentresPoison(context!!, pro)
                     }
-
                     else {
-                        if (pro.number == 999.toLong()) {
-                            //centre anti poison
-                            displayCentresPoison(context!!, pro)
-                        }
-                        else {
-                           launchCall(pro.name.toString(), pro.number.toString())
-                        }
+                       launchCall(pro.name.toString(), pro.number.toString())
                     }
                 }
 
-
-                // Display a negative button on alert dialog
-                //builder.setNegativeButton("No"){dialog,which ->
-
-                //}
-
-
-                // Display a neutral button on alert dialog
-                builder.setNeutralButton("Annuler"){_,_ ->
-
-                }
-
-                // Finally, make the alert dialog using builder
-                val dialog: AlertDialog = builder.create()
-
-                // Display the alert dialog on app interface
-                dialog.show()
             }
-        }
-        else {
-            proView = convertView
-        }
+       // }
+       // else {
+       //     proView = convertView
+       // }
 
         return proView
     }
@@ -158,9 +120,30 @@ class ProsAdapter : BaseAdapter {
 
 
             alert.setPositiveButton("Envoyer") {alert, which ->
-                Toast.makeText(context, "Sms envoyé!", Toast.LENGTH_SHORT).show()// Initialize a new instance of
-                val smsManager = SmsManager.getDefault()
-                smsManager.sendTextMessage(pro.number.toString(), null, input.text.toString(), null, null)
+                val builder = AlertDialog.Builder(context!!)
+                // Display a message on alert dialog
+                builder.setMessage("Voulez vous vraiment envoyer ce message à " + pro.name)
+
+                // Set a positive button and its click listener on alert dialog
+                builder.setPositiveButton("Oui, envoyer"){dialog, which ->
+                    Toast.makeText(context, "Sms envoyé!", Toast.LENGTH_SHORT).show()// Initialize a new instance of
+                    val smsManager = SmsManager.getDefault()
+                    smsManager.sendTextMessage(pro.number.toString(), null, input.text.toString(), null, null)
+
+                }
+
+                builder.setNeutralButton("Annuler"){_,_ ->
+
+                }
+
+                // Finally, make the alert dialog using builder
+                val dialog: AlertDialog = builder.create()
+
+                // Display the alert dialog on app interface
+                dialog.show()
+
+
+
             }
 
             alert.setNegativeButton("Annuler") {
@@ -227,14 +210,37 @@ class ProsAdapter : BaseAdapter {
     }
 
     fun launchCall(name:String, number:String) {
-        Toast.makeText(context, name +"("+number+") " +"Appel en cours ...", Toast.LENGTH_SHORT).show()// Initialize a new instance of
-        val intent = Intent(Intent.ACTION_CALL)
-        if (ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            intent.data = Uri.parse("tel:" + number)
-            context!!.startActivity(intent)
-        } else {
-            alert_error(context!!, "\"Vous n'avez pas autorisé cette application à passer des appels\"")
+        val builder = AlertDialog.Builder(context!!)
+        // Display a message on alert dialog
+        builder.setMessage("Voulez vous vraiment contacter " + name + "(" + number + ")")
+
+        // Set a positive button and its click listener on alert dialog
+        builder.setPositiveButton("Oui, contacter"){dialog, which ->
+            Toast.makeText(context, name +"("+number+") " +"Appel en cours ...", Toast.LENGTH_SHORT).show()// Initialize a new instance of
+
+            if (ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(Intent.ACTION_CALL)
+                intent.data = Uri.parse("tel:" + number)
+                context!!.startActivity(intent)
+            } else {
+                val listPermissions = listOf<String>(
+                        Manifest.permission.CALL_PHONE
+                )
+                ActivityCompat.requestPermissions(context as Activity, listPermissions.toTypedArray(), 123)
+            }
+
         }
+
+        builder.setNeutralButton("Annuler"){_,_ ->
+
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
+
 
     }
 

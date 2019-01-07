@@ -1,5 +1,7 @@
 package urgencesfr.gtheurillat.urgencesfr.activity
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -9,10 +11,13 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import urgencesfr.gtheurillat.urgencesfr.adapter.MainTabAdapter
 import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
+import java.security.Permission
 
 
 class TabActivity : AppCompatActivity() {
@@ -48,11 +53,30 @@ class TabActivity : AppCompatActivity() {
             val tabLayout = findViewById(R.id.tabLayout_main) as TabLayout
             tabLayout.setupWithViewPager(viewPager)
 
+
+            var permission_appel: String = Manifest.permission.CALL_PHONE;
+            allowPermissions(permission_appel)
+
+            var permission_sms: String = Manifest.permission.SEND_SMS;
+            allowPermissions(permission_sms)
+
+
         } catch (e: Exception) {
             showError(e.toString())
         }
 
 
+    }
+
+    fun allowPermissions(permission: String) {
+        if (mainContext.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED)
+        {
+            val listPermissions = listOf<String>(
+                    permission
+            )
+            ActivityCompat.requestPermissions(this, listPermissions.toTypedArray(), 123)
+
+        }
     }
 
     fun showError(message: String) {

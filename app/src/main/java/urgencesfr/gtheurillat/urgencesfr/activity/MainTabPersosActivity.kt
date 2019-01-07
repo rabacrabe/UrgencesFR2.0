@@ -1,5 +1,7 @@
 package urgencesfr.gtheurillat.urgencesfr.activity
 
+import android.Manifest
+import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
@@ -18,6 +20,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.text.InputType
@@ -98,8 +101,28 @@ class MainTabPersosActivity : Fragment() {
 
         listView!!.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             val current_perso = listDetail!!.get(position)
-            launchCall(current_perso.name, current_perso.number)
 
+            val builder = AlertDialog.Builder(context!!)
+            // Display a message on alert dialog
+            builder.setMessage("Voulez vous vraiment contacter " + current_perso.name + "(" + current_perso.number + ")")
+
+            // Set a positive button and its click listener on alert dialog
+            builder.setPositiveButton("Oui, contacter"){dialog, which ->
+                Toast.makeText(context, "Appel " + current_perso.number, Toast.LENGTH_SHORT).show()// Initialize a new instance of
+
+                launchCall(current_perso.name, current_perso.number)
+
+            }
+
+            builder.setNeutralButton("Annuler"){_,_ ->
+
+            }
+
+            // Finally, make the alert dialog using builder
+            val dialog: AlertDialog = builder.create()
+
+            // Display the alert dialog on app interface
+            dialog.show()
             //return true;
         })
 
@@ -227,6 +250,7 @@ class MainTabPersosActivity : Fragment() {
         dialog_error.show()
     }
 
+    /*
     fun launchCall(name:String?, number:String?) {
         Toast.makeText(context, name +"("+number+") " +"Appel en cours ...", Toast.LENGTH_SHORT).show()// Initialize a new instance of
         val intent = Intent(Intent.ACTION_CALL)
@@ -238,6 +262,21 @@ class MainTabPersosActivity : Fragment() {
         }
 
     }
+*/
 
+    fun launchCall(name:String?, number:String?) {
+        Toast.makeText(context, name +"("+number+") " +"Appel en cours ...", Toast.LENGTH_SHORT).show()// Initialize a new instance of
+
+        if (ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:" + number)
+            context!!.startActivity(intent)
+        } else {
+            val listPermissions = listOf<String>(
+                    Manifest.permission.CALL_PHONE
+            )
+            ActivityCompat.requestPermissions(context as Activity, listPermissions.toTypedArray(), 123)
+        }
+    }
 
 }
