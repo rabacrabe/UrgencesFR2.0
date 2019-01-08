@@ -1,4 +1,4 @@
-package urgencesfr.gtheurillat.urgencesfr.util
+package com.urgences.util
 
 import android.Manifest
 import android.app.Activity
@@ -7,21 +7,30 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.telephony.SmsManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
-import urgencesfr.gtheurillat.urgencesfr.model.Pro
-import java.security.Permission
+import com.urgences.model.Pro
 
-fun allowPermissions(context: Context, permission: String) {
-    if (context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED)
+fun allowPermissions(context: Context, permissions: List<String>) {
+
+    var listPermissions = ArrayList<String>()
+
+    for (permission in permissions) {
+        if (context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED)
+        {
+            listPermissions.add(permission)
+        }
+    }
+
+
+    if (listPermissions.size > 0)
     {
-        val listPermissions = listOf<String>(
-                permission
-        )
+        //val listPermissions = listOf<String>(
+        //        permission
+        //)
         ActivityCompat.requestPermissions(context as Activity, listPermissions.toTypedArray(), 123)
     }
 }
@@ -49,7 +58,9 @@ fun launchCall(context: Context, name:String, number:String) {
             context.startActivity(intent)
         } else {
             var permission_appel: String = Manifest.permission.CALL_PHONE;
-            allowPermissions(context, permission_appel)
+            var listpermission = ArrayList<String>()
+            listpermission.add(permission_appel)
+            allowPermissions(context, listpermission)
         }
 
     }

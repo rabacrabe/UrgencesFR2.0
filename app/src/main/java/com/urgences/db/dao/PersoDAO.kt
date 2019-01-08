@@ -1,14 +1,13 @@
-package urgencesfr.gtheurillat.urgencesfr.db.dao
+package com.urgences.db.dao
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.util.Log
 
 import java.util.ArrayList
 
-import urgencesfr.gtheurillat.urgencesfr.db.DAOBase
-import urgencesfr.gtheurillat.urgencesfr.db.model.Perso
+import com.urgences.db.DAOBase
+import com.urgences.db.model.Perso
 
 /**
  * Created by gtheurillat on 17/07/2018.

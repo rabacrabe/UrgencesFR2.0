@@ -1,35 +1,22 @@
-package urgencesfr.gtheurillat.urgencesfr.activity
+package com.urgences.activity
 
-import android.Manifest
-import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import urgencesfr.gtheurillat.urgencesfr.R
-import android.text.method.ScrollingMovementMethod
+import com.urgences.R
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main_tab_persos.*
-import urgencesfr.gtheurillat.urgencesfr.db.dao.PersoDAO
+import com.urgences.db.dao.PersoDAO
 import android.content.DialogInterface
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.text.InputType
 import android.widget.*
-import urgencesfr.gtheurillat.urgencesfr.db.model.Perso
-import urgencesfr.gtheurillat.urgencesfr.adapter.PersosAdapter;
-import urgencesfr.gtheurillat.urgencesfr.model.Pro
+import com.urgences.db.model.Perso
+import com.urgences.adapter.PersosAdapter;
 import android.widget.AdapterView
-import urgencesfr.gtheurillat.urgencesfr.util.launchCall
+import com.urgences.util.launchCall
 
 
 class MainTabPersosActivity : Fragment() {
@@ -191,6 +178,7 @@ class MainTabPersosActivity : Fragment() {
 
                 val newpers : Perso = Perso(inputname.text.toString(), inputnumber.text.toString())
                 persoDAO!!.ajouter(newpers)
+                listDetail!!.add(newpers)
                 //MAJ listview
                 listAdapter!!.addItem(newpers)
                 listAdapter!!.notifyDataSetChanged()

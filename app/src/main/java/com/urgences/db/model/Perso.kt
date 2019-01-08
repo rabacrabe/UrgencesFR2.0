@@ -1,4 +1,4 @@
-package urgencesfr.gtheurillat.urgencesfr.db.model
+package com.urgences.db.model
 
 /**
  * Created by gtheurillat on 24/07/2018.

@@ -1,19 +1,15 @@
-package urgencesfr.gtheurillat.urgencesfr.activity
+package com.urgences.activity
 
-import android.content.Context
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import urgencesfr.gtheurillat.urgencesfr.R
+import com.urgences.R
 import android.widget.GridView
-import android.widget.ImageView
-import kotlinx.android.synthetic.main.activity_main_tab_pros.*
-import urgencesfr.gtheurillat.urgencesfr.adapter.ProsAdapter
-import urgencesfr.gtheurillat.urgencesfr.model.Pro
+import com.urgences.adapter.ProsAdapter
+import com.urgences.model.Pro
 
 
 class MainTabProsActivity : Fragment() {

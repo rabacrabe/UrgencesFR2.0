@@ -1,6 +1,4 @@
-package urgencesfr.gtheurillat.urgencesfr.model
-
-import android.widget.ImageView
+package com.urgences.model
 
 class Pro {
 

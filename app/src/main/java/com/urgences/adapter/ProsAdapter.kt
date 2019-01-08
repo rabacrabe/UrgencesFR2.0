@@ -1,32 +1,17 @@
-package urgencesfr.gtheurillat.urgencesfr.adapter
+package com.urgences.adapter
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.ViewGroup
-import urgencesfr.gtheurillat.urgencesfr.model.Pro
+import com.urgences.model.Pro
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.tab_pros_content.view.*
-import urgencesfr.gtheurillat.urgencesfr.R
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.support.v4.content.ContextCompat
-import android.telephony.SmsManager
-import android.text.InputType
+import com.urgences.R
 import android.widget.*
 import android.widget.LinearLayout
-import android.widget.EditText
-import android.widget.Toast
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.content.DialogInterface
-import android.support.v4.app.ActivityCompat
-import urgencesfr.gtheurillat.urgencesfr.util.launchCall
-import urgencesfr.gtheurillat.urgencesfr.util.launchSms
+import com.urgences.util.launchCall
+import com.urgences.util.launchSms
 
 
 class ProsAdapter : BaseAdapter {

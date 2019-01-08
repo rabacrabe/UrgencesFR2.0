@@ -1,24 +1,19 @@
-package urgencesfr.gtheurillat.urgencesfr.activity
+package com.urgences.activity
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import urgencesfr.gtheurillat.urgencesfr.R
+import com.urgences.R
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.View
-import urgencesfr.gtheurillat.urgencesfr.adapter.MainTabAdapter
+import com.urgences.adapter.MainTabAdapter
 import android.content.DialogInterface
-import android.content.pm.PackageManager
-import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
-import urgencesfr.gtheurillat.urgencesfr.util.allowPermissions
-import java.security.Permission
+import com.urgences.util.allowPermissions
 
 
 class TabActivity : AppCompatActivity() {
@@ -54,12 +49,16 @@ class TabActivity : AppCompatActivity() {
             val tabLayout = findViewById(R.id.tabLayout_main) as TabLayout
             tabLayout.setupWithViewPager(viewPager)
 
-
+            var listPermissions = ArrayList<String>()
             var permission_appel: String = Manifest.permission.CALL_PHONE;
-            allowPermissions(mainContext, permission_appel)
-
             var permission_sms: String = Manifest.permission.SEND_SMS;
-            allowPermissions(mainContext, permission_sms)
+
+
+            listPermissions.add(permission_appel)
+            listPermissions.add(permission_sms)
+
+            allowPermissions(mainContext, listPermissions)
+
 
 
         } catch (e: Exception) {

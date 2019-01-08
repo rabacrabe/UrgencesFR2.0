@@ -1,4 +1,4 @@
-package urgencesfr.gtheurillat.urgencesfr
+package com.urgences.urgencesfr
 
 import org.junit.Test
 

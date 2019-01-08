@@ -1,4 +1,4 @@
-package urgencesfr.gtheurillat.urgencesfr.db
+package com.urgences.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

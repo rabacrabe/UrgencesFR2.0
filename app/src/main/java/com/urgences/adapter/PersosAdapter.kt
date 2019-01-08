@@ -1,16 +1,12 @@
-package urgencesfr.gtheurillat.urgencesfr.adapter
+package com.urgences.adapter
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
-import android.telephony.SmsManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import urgencesfr.gtheurillat.urgencesfr.db.model.Perso
-import urgencesfr.gtheurillat.urgencesfr.R
-import urgencesfr.gtheurillat.urgencesfr.model.Pro
+import com.urgences.db.model.Perso
+import com.urgences.R
 import java.util.ArrayList
 import android.widget.LinearLayout
 

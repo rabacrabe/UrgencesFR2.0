@@ -1,4 +1,4 @@
-package urgencesfr.gtheurillat.urgencesfr.db
+package com.urgences.db
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import urgencesfr.gtheurillat.urgencesfr.db.dao.PersoDAO
+import com.urgences.db.dao.PersoDAO
 
 /**
  * Created by gtheurillat on 17/07/2018.
