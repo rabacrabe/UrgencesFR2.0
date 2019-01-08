@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
+import urgencesfr.gtheurillat.urgencesfr.util.allowPermissions
 import java.security.Permission
 
 
@@ -55,10 +56,10 @@ class TabActivity : AppCompatActivity() {
 
 
             var permission_appel: String = Manifest.permission.CALL_PHONE;
-            allowPermissions(permission_appel)
+            allowPermissions(mainContext, permission_appel)
 
             var permission_sms: String = Manifest.permission.SEND_SMS;
-            allowPermissions(permission_sms)
+            allowPermissions(mainContext, permission_sms)
 
 
         } catch (e: Exception) {
@@ -68,16 +69,7 @@ class TabActivity : AppCompatActivity() {
 
     }
 
-    fun allowPermissions(permission: String) {
-        if (mainContext.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED)
-        {
-            val listPermissions = listOf<String>(
-                    permission
-            )
-            ActivityCompat.requestPermissions(this, listPermissions.toTypedArray(), 123)
 
-        }
-    }
 
     fun showError(message: String) {
         val alertDialogBuilder: AlertDialog.Builder

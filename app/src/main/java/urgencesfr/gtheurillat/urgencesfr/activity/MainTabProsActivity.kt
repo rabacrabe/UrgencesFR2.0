@@ -48,7 +48,7 @@ class MainTabProsActivity : Fragment() {
         //prosList.add(Pro("Attentat", 197, R.drawable.attentat))
         prosList.add(Pro("Centre anti poison", 999, R.drawable.poisons))
         prosList.add(Pro("Urgences Europeenne", 112, R.drawable.europe))
-        prosList.add(Pro("Enfant malraité", 119, R.drawable.enfant_maltraite))
+        prosList.add(Pro("Enfant maltraité", 119, R.drawable.enfant_maltraite))
         prosList.add(Pro("Sauvetage Maritime", 196, R.drawable.maritime))
         prosList.add(Pro("Violences conjugales", 3919, R.drawable.violences_conjugales))
 

@@ -25,6 +25,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.content.DialogInterface
 import android.support.v4.app.ActivityCompat
+import urgencesfr.gtheurillat.urgencesfr.util.launchCall
+import urgencesfr.gtheurillat.urgencesfr.util.launchSms
 
 
 class ProsAdapter : BaseAdapter {
@@ -68,7 +70,7 @@ class ProsAdapter : BaseAdapter {
             proView.imgPro.setOnClickListener {
                 if (pro.number == 114.toLong()) {
                     //sourds et malentendants
-                    displayAlertSourds(context!!, pro)
+                    launchSms(context!!, pro)
                 }
                 else {
                     if (pro.number == 999.toLong()) {
@@ -76,7 +78,7 @@ class ProsAdapter : BaseAdapter {
                         displayCentresPoison(context!!, pro)
                     }
                     else {
-                       launchCall(pro.name.toString(), pro.number.toString())
+                       launchCall(context!!, pro.name.toString(), pro.number.toString())
                     }
                 }
 
@@ -101,62 +103,7 @@ class ProsAdapter : BaseAdapter {
         dialog_error.show()
     }
 
-    fun displayAlertSourds(context:Context, pro: Pro){
-        val alert = AlertDialog.Builder(context)
-        var message:EditText?=null
 
-        // Builder
-        with (alert) {
-            setTitle("Veuillez écrire ci-dessous le message à envoyé aux urgences")
-
-            val input = EditText(context)
-            input.setLines(8)
-            val lp = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT)
-
-            input.layoutParams = lp
-            alert.setView(input) // uncomment this line
-
-
-            alert.setPositiveButton("Envoyer") {alert, which ->
-                val builder = AlertDialog.Builder(context!!)
-                // Display a message on alert dialog
-                builder.setMessage("Voulez vous vraiment envoyer ce message à " + pro.name)
-
-                // Set a positive button and its click listener on alert dialog
-                builder.setPositiveButton("Oui, envoyer"){dialog, which ->
-                    Toast.makeText(context, "Sms envoyé!", Toast.LENGTH_SHORT).show()// Initialize a new instance of
-                    val smsManager = SmsManager.getDefault()
-                    smsManager.sendTextMessage(pro.number.toString(), null, input.text.toString(), null, null)
-
-                }
-
-                builder.setNeutralButton("Annuler"){_,_ ->
-
-                }
-
-                // Finally, make the alert dialog using builder
-                val dialog: AlertDialog = builder.create()
-
-                // Display the alert dialog on app interface
-                dialog.show()
-
-
-
-            }
-
-            alert.setNegativeButton("Annuler") {
-                dialog, whichButton ->
-                //showMessage("Close the game or anything!")
-                dialog.dismiss()
-            }
-        }
-
-        // Dialog
-        val dialog = alert.create()
-        dialog.show()
-    }
 
     fun displayCentresPoison(context:Context, pro: Pro){
         class CentreAntiPoison {
@@ -189,15 +136,15 @@ class ProsAdapter : BaseAdapter {
         val centres = arrayOf("ANGERS", "BORDEAUX", "LILLE", "LYON", "MARSEILLE", "NANCY", "PARIS", "STRASBOURG", "TOULOUSE")
         builder.setItems(centres) { dialog, which ->
             when (which) {
-                0 -> launchCall("Centre anti-poison "+listCentres[0].libelle, listCentres[0].number)
-                1 -> launchCall("Centre anti-poison "+listCentres[1].libelle, listCentres[1].number)
-                2 -> launchCall("Centre anti-poison "+listCentres[2].libelle, listCentres[2].number)
-                3 -> launchCall("Centre anti-poison "+listCentres[3].libelle, listCentres[3].number)
-                4 -> launchCall("Centre anti-poison "+listCentres[4].libelle, listCentres[4].number)
-                5 -> launchCall("Centre anti-poison "+listCentres[5].libelle, listCentres[5].number)
-                6 -> launchCall("Centre anti-poison "+listCentres[6].libelle, listCentres[6].number)
-                7 -> launchCall("Centre anti-poison "+listCentres[7].libelle, listCentres[7].number)
-                8 -> launchCall("Centre anti-poison "+listCentres[8].libelle, listCentres[8].number)
+                0 -> launchCall(context!!, "Centre anti-poison "+listCentres[0].libelle, listCentres[0].number)
+                1 -> launchCall(context!!, "Centre anti-poison "+listCentres[1].libelle, listCentres[1].number)
+                2 -> launchCall(context!!, "Centre anti-poison "+listCentres[2].libelle, listCentres[2].number)
+                3 -> launchCall(context!!, "Centre anti-poison "+listCentres[3].libelle, listCentres[3].number)
+                4 -> launchCall(context!!, "Centre anti-poison "+listCentres[4].libelle, listCentres[4].number)
+                5 -> launchCall(context!!, "Centre anti-poison "+listCentres[5].libelle, listCentres[5].number)
+                6 -> launchCall(context!!, "Centre anti-poison "+listCentres[6].libelle, listCentres[6].number)
+                7 -> launchCall(context!!, "Centre anti-poison "+listCentres[7].libelle, listCentres[7].number)
+                8 -> launchCall(context!!, "Centre anti-poison "+listCentres[8].libelle, listCentres[8].number)
 
             }
         }
@@ -209,40 +156,6 @@ class ProsAdapter : BaseAdapter {
         dialog.show()
     }
 
-    fun launchCall(name:String, number:String) {
-        val builder = AlertDialog.Builder(context!!)
-        // Display a message on alert dialog
-        builder.setMessage("Voulez vous vraiment contacter " + name + "(" + number + ")")
-
-        // Set a positive button and its click listener on alert dialog
-        builder.setPositiveButton("Oui, contacter"){dialog, which ->
-            Toast.makeText(context, name +"("+number+") " +"Appel en cours ...", Toast.LENGTH_SHORT).show()// Initialize a new instance of
-
-            if (ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(Intent.ACTION_CALL)
-                intent.data = Uri.parse("tel:" + number)
-                context!!.startActivity(intent)
-            } else {
-                val listPermissions = listOf<String>(
-                        Manifest.permission.CALL_PHONE
-                )
-                ActivityCompat.requestPermissions(context as Activity, listPermissions.toTypedArray(), 123)
-            }
-
-        }
-
-        builder.setNeutralButton("Annuler"){_,_ ->
-
-        }
-
-        // Finally, make the alert dialog using builder
-        val dialog: AlertDialog = builder.create()
-
-        // Display the alert dialog on app interface
-        dialog.show()
-
-
-    }
 
 }
 
