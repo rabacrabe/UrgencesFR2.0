@@ -1,4 +1,4 @@
-package com.urgences.util
+package fr.urgences.util
 
 import android.Manifest
 import android.app.Activity
@@ -12,7 +12,7 @@ import android.telephony.SmsManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.urgences.model.Pro
+import fr.urgences.model.Pro
 
 fun allowPermissions(context: Context, permissions: List<String>) {
 
@@ -49,7 +49,7 @@ fun launchCall(context: Context, name:String, number:String) {
     builder.setMessage("Voulez vous vraiment contacter " + name + "(" + number + ")")
 
     // Set a positive button and its click listener on alert dialog
-    builder.setPositiveButton("Oui, contacter"){dialog, which ->
+    builder.setPositiveButton("Oui, contacter"){_, _ ->
 
         if (checkPermission(context, Manifest.permission.CALL_PHONE)) {
             val call:Uri = Uri.parse("tel:" + number)
@@ -81,7 +81,7 @@ fun launchCall(context: Context, name:String, number:String) {
 
 fun launchSms(context:Context, pro: Pro){
     val alert = AlertDialog.Builder(context)
-    var message: EditText?=null
+    //var message: EditText?=null
 
     // Builder
     with (alert) {
@@ -97,13 +97,13 @@ fun launchSms(context:Context, pro: Pro){
         alert.setView(input) // uncomment this line
 
 
-        alert.setPositiveButton("Envoyer") {alert, which ->
-            val builder = AlertDialog.Builder(context!!)
+        alert.setPositiveButton("Envoyer") {_, _ ->
+            val builder = AlertDialog.Builder(context)
             // Display a message on alert dialog
             builder.setMessage("Voulez vous vraiment envoyer ce message à " + pro.name)
 
             // Set a positive button and its click listener on alert dialog
-            builder.setPositiveButton("Oui, envoyer"){dialog, which ->
+            builder.setPositiveButton("Oui, envoyer"){_, _ ->
                 Toast.makeText(context, "Sms envoyé!", Toast.LENGTH_SHORT).show()// Initialize a new instance of
                 val smsManager = SmsManager.getDefault()
                 smsManager.sendTextMessage(pro.number.toString(), null, input.text.toString(), null, null)
@@ -125,7 +125,7 @@ fun launchSms(context:Context, pro: Pro){
         }
 
         alert.setNegativeButton("Annuler") {
-            dialog, whichButton ->
+            dialog, _ ->
             //showMessage("Close the game or anything!")
             dialog.dismiss()
         }

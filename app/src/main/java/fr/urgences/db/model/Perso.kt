@@ -1,4 +1,4 @@
-package com.urgences.db.model
+package fr.urgences.db.model
 
 /**
  * Created by gtheurillat on 24/07/2018.

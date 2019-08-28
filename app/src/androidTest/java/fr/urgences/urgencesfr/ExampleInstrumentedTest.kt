@@ -1,4 +1,4 @@
-package com.urgences.urgencesfr
+package fr.urgences.urgencesfr
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

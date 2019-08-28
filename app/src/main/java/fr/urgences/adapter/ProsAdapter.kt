@@ -1,17 +1,17 @@
-package com.urgences.adapter
+package fr.urgences.adapter
 
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.ViewGroup
-import com.urgences.model.Pro
+import fr.urgences.model.Pro
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.tab_pros_content.view.*
 import com.urgences.R
 import android.widget.*
 import android.widget.LinearLayout
-import com.urgences.util.launchCall
-import com.urgences.util.launchSms
+import fr.urgences.util.launchCall
+import fr.urgences.util.launchSms
 
 
 class ProsAdapter : BaseAdapter {
@@ -60,10 +60,10 @@ class ProsAdapter : BaseAdapter {
                 else {
                     if (pro.number == 999.toLong()) {
                         //centre anti poison
-                        displayCentresPoison(context!!, pro)
+                        displayCentresPoison(context!!)
                     }
                     else {
-                       launchCall(context!!, pro.name.toString(), pro.number.toString())
+                        launchCall(context!!, pro.name.toString(), pro.number.toString())
                     }
                 }
 
@@ -77,7 +77,7 @@ class ProsAdapter : BaseAdapter {
     }
 
     fun alert_error(context: Context, message:String) {
-        val builder_error = AlertDialog.Builder(context!!)
+        val builder_error = AlertDialog.Builder(context)
 
         // Set the alert dialog title
         builder_error.setTitle("ERREUR")
@@ -90,10 +90,10 @@ class ProsAdapter : BaseAdapter {
 
 
 
-    fun displayCentresPoison(context:Context, pro: Pro){
+    fun displayCentresPoison(context:Context){
         class CentreAntiPoison {
-            public lateinit var libelle: String
-            public lateinit var number: String
+            public  var libelle: String
+            public  var number: String
 
             constructor(libelle: String, number: String) {
                 this.libelle = libelle
@@ -119,17 +119,17 @@ class ProsAdapter : BaseAdapter {
 
 // add a list
         val centres = arrayOf("ANGERS", "BORDEAUX", "LILLE", "LYON", "MARSEILLE", "NANCY", "PARIS", "STRASBOURG", "TOULOUSE")
-        builder.setItems(centres) { dialog, which ->
+        builder.setItems(centres) { _, which ->
             when (which) {
-                0 -> launchCall(context!!, "Centre anti-poison "+listCentres[0].libelle, listCentres[0].number)
-                1 -> launchCall(context!!, "Centre anti-poison "+listCentres[1].libelle, listCentres[1].number)
-                2 -> launchCall(context!!, "Centre anti-poison "+listCentres[2].libelle, listCentres[2].number)
-                3 -> launchCall(context!!, "Centre anti-poison "+listCentres[3].libelle, listCentres[3].number)
-                4 -> launchCall(context!!, "Centre anti-poison "+listCentres[4].libelle, listCentres[4].number)
-                5 -> launchCall(context!!, "Centre anti-poison "+listCentres[5].libelle, listCentres[5].number)
-                6 -> launchCall(context!!, "Centre anti-poison "+listCentres[6].libelle, listCentres[6].number)
-                7 -> launchCall(context!!, "Centre anti-poison "+listCentres[7].libelle, listCentres[7].number)
-                8 -> launchCall(context!!, "Centre anti-poison "+listCentres[8].libelle, listCentres[8].number)
+                0 -> launchCall(context, "Centre anti-poison " + listCentres[0].libelle, listCentres[0].number)
+                1 -> launchCall(context, "Centre anti-poison " + listCentres[1].libelle, listCentres[1].number)
+                2 -> launchCall(context, "Centre anti-poison " + listCentres[2].libelle, listCentres[2].number)
+                3 -> launchCall(context, "Centre anti-poison " + listCentres[3].libelle, listCentres[3].number)
+                4 -> launchCall(context, "Centre anti-poison " + listCentres[4].libelle, listCentres[4].number)
+                5 -> launchCall(context, "Centre anti-poison " + listCentres[5].libelle, listCentres[5].number)
+                6 -> launchCall(context, "Centre anti-poison " + listCentres[6].libelle, listCentres[6].number)
+                7 -> launchCall(context, "Centre anti-poison " + listCentres[7].libelle, listCentres[7].number)
+                8 -> launchCall(context, "Centre anti-poison " + listCentres[8].libelle, listCentres[8].number)
 
             }
         }

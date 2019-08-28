@@ -1,4 +1,4 @@
-package com.urgences.db
+package fr.urgences.db
 
 import android.content.ContentValues
 import android.content.Context

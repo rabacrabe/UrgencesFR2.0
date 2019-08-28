@@ -1,4 +1,4 @@
-package com.urgences.model
+package fr.urgences.model
 
 class Pro {
 

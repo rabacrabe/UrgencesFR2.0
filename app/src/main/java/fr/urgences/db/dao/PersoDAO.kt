@@ -1,4 +1,4 @@
-package com.urgences.db.dao
+package fr.urgences.db.dao
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,8 +6,8 @@ import android.util.Log
 
 import java.util.ArrayList
 
-import com.urgences.db.DAOBase
-import com.urgences.db.model.Perso
+import fr.urgences.db.DAOBase
+import fr.urgences.db.model.Perso
 
 /**
  * Created by gtheurillat on 17/07/2018.
@@ -24,11 +24,11 @@ class PersoDAO(pContext: Context) : DAOBase(pContext) {
 
         val value = ContentValues()
 
-        value.put(PersoDAO.NAME, pso.name)
-        value.put(PersoDAO.NUMBER, pso.number)
+        value.put(NAME, pso.name)
+        value.put(NUMBER, pso.number)
 
 
-        mDb!!.insert(PersoDAO.TABLE_NAME, null, value)
+        mDb!!.insert(TABLE_NAME, null, value)
         close()
     }
 

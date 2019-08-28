@@ -1,4 +1,4 @@
-package com.urgences.urgencesfr
+package fr.urgences.urgencesfr
 
 import org.junit.Test
 

@@ -1,11 +1,11 @@
-package com.urgences.adapter
+package fr.urgences.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.urgences.db.model.Perso
+import fr.urgences.db.model.Perso
 import com.urgences.R
 import java.util.ArrayList
 import android.widget.LinearLayout
@@ -27,7 +27,7 @@ class PersosAdapter(private val context: Context, perso_items: ArrayList<Perso>)
         }
     }
 
-    fun addItem(perso:Perso){
+    fun addItem(perso: Perso){
         this.items.add(perso)
     }
 

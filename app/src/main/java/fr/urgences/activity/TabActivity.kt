@@ -1,4 +1,4 @@
-package com.urgences.activity
+package fr.urgences.activity
 
 import android.Manifest
 import android.content.Context
@@ -8,12 +8,12 @@ import com.urgences.R
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.View
-import com.urgences.adapter.MainTabAdapter
+import fr.urgences.adapter.MainTabAdapter
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
-import com.urgences.util.allowPermissions
+import fr.urgences.util.allowPermissions
 
 
 class TabActivity : AppCompatActivity() {
@@ -80,7 +80,7 @@ class TabActivity : AppCompatActivity() {
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
+                .setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
                     // if this button is clicked, close
                     // current activity
                     this@TabActivity.finish()

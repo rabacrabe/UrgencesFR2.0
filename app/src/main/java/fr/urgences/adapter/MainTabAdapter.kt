@@ -1,10 +1,10 @@
-package com.urgences.adapter
+package fr.urgences.adapter
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.urgences.activity.MainTabProsActivity;
-import com.urgences.activity.MainTabPersosActivity;
+import fr.urgences.activity.MainTabProsActivity;
+import fr.urgences.activity.MainTabPersosActivity;
 
 class MainTabAdapter//Constructor to the class
 (fm: FragmentManager, //integer to count number of tabs

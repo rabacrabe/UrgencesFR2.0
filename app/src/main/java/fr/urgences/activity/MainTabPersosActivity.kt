@@ -1,4 +1,4 @@
-package com.urgences.activity
+package fr.urgences.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -8,15 +8,15 @@ import com.urgences.R
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import com.urgences.db.dao.PersoDAO
+import fr.urgences.db.dao.PersoDAO
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.text.InputType
 import android.widget.*
-import com.urgences.db.model.Perso
-import com.urgences.adapter.PersosAdapter;
+import fr.urgences.db.model.Perso
+import fr.urgences.adapter.PersosAdapter;
 import android.widget.AdapterView
-import com.urgences.util.launchCall
+import fr.urgences.util.launchCall
 
 
 class MainTabPersosActivity : Fragment() {
@@ -24,7 +24,7 @@ class MainTabPersosActivity : Fragment() {
     var persoDAO: PersoDAO? = null
     var listView: ListView? = null
     var listDetail:ArrayList<Perso>? = null
-    var listAdapter:PersosAdapter? = null
+    var listAdapter: PersosAdapter? = null
 
     companion object {
 
@@ -65,9 +65,9 @@ class MainTabPersosActivity : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.activity_main_tab_persos, container, false)
+        val view = inflater.inflate(R.layout.activity_main_tab_persos, container, false)
 
-        val titreTextView = view.findViewById(R.id.textView) as TextView
+        //val titreTextView = view.findViewById(R.id.textView) as TextView
 
         persoDAO = PersoDAO(view.context);
         listDetail = persoDAO!!.selectionnerAll();
@@ -82,7 +82,7 @@ class MainTabPersosActivity : Fragment() {
         //titreTextView.setText("CUSTOMS PERSOS")
 
 
-        listView!!.setOnItemClickListener { parent, view, position, id ->
+        listView!!.setOnItemClickListener { _, _, position, _ ->
             val current_perso = listDetail!!.get(position)
             launchCall(context!!, current_perso.name!!, current_perso.number!!)
 
@@ -92,7 +92,7 @@ class MainTabPersosActivity : Fragment() {
         listView!!.setOnItemLongClickListener(object : AdapterView.OnItemLongClickListener {
             internal var pos: Int = 0
 
-            internal var dialogClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { dialog, which ->
+            internal var dialogClickListener: DialogInterface.OnClickListener = DialogInterface.OnClickListener { _, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {
 
@@ -127,11 +127,11 @@ class MainTabPersosActivity : Fragment() {
         listView!!.setAdapter(listAdapter)
 
         val add_persos = view.findViewById<View>(R.id.add_persos) as FloatingActionButton
-        add_persos.setOnClickListener { view ->
+        add_persos.setOnClickListener { myview ->
             //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
            //         .setAction("Action", null).show()
 
-            displayAlertAddPerso(view.context)
+            displayAlertAddPerso(myview.context)
         }
 
         return view
@@ -139,7 +139,7 @@ class MainTabPersosActivity : Fragment() {
 
     fun displayAlertAddPerso(context: Context){
         val alert = AlertDialog.Builder(context)
-        var message: EditText?=null
+
 
         // Builder
         with (alert) {
@@ -171,7 +171,7 @@ class MainTabPersosActivity : Fragment() {
 
             alert.setView(layout) // uncomment this line
 
-            alert.setPositiveButton("Ajouter") {alert, which ->
+            alert.setPositiveButton("Ajouter") {_, _ ->
                 Toast.makeText(context, "Nouveau muméro ajouté!", Toast.LENGTH_SHORT).show()// Initialize a new instance of
 
                 //ajout dans la bdd
@@ -185,7 +185,7 @@ class MainTabPersosActivity : Fragment() {
             }
 
             alert.setNegativeButton("Annuler") {
-                dialog, whichButton ->
+                dialog, _ ->
                 //showMessage("Close the game or anything!")
                 dialog.dismiss()
             }
@@ -197,7 +197,7 @@ class MainTabPersosActivity : Fragment() {
     }
 
     fun alert_error(context: Context, message:String) {
-        val builder_error = AlertDialog.Builder(context!!)
+        val builder_error = AlertDialog.Builder(context)
 
         // Set the alert dialog title
         builder_error.setTitle("ERREUR")

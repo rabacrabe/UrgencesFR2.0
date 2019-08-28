@@ -1,4 +1,4 @@
-package com.urgences.activity
+package fr.urgences.activity
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.urgences.R
 import android.widget.GridView
-import com.urgences.adapter.ProsAdapter
-import com.urgences.model.Pro
+import fr.urgences.adapter.ProsAdapter
+import fr.urgences.model.Pro
 
 
 class MainTabProsActivity : Fragment() {
@@ -53,9 +53,9 @@ class MainTabProsActivity : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.activity_main_tab_pros, container, false)
+        val view = inflater.inflate(R.layout.activity_main_tab_pros, container, false)
 
-        val titreTextView = view.findViewById(R.id.textView) as TextView
+        //val titreTextView = view.findViewById(R.id.textView) as TextView
         //titreTextView.setText("CUSTOMS PERSOS")
 
         val gridPros: GridView = view.findViewById(R.id.gridPros) as GridView

@@ -1,4 +1,4 @@
-package com.urgences.db
+package fr.urgences.db
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.urgences.db.dao.PersoDAO
+import fr.urgences.db.dao.PersoDAO
 
 /**
  * Created by gtheurillat on 17/07/2018.
@@ -52,13 +52,13 @@ class DbBaseHelper
         Log.e("DB", "SAVE TABLE " + PersoDAO.TABLE_NAME)
         val METIER_TABLE_SELECT_ALL = "SELECT * FROM " + PersoDAO.TABLE_NAME + ";"
 
-        var cursor: Cursor? = null
+        var cursor: Cursor?
         try {
             cursor = db.rawQuery(METIER_TABLE_SELECT_ALL, null)
         } catch (e: Exception) {
             cursor = null
         }
-
+        Log.e("DB", "VERSION " + oldVersion + " -> " + newVersion )
         Log.e("DB", "DROP TABLE " + PersoDAO.TABLE_NAME)
         Log.e("DB", "-> " + PersoDAO.METIER_TABLE_DROP)
         db.execSQL(PersoDAO.METIER_TABLE_DROP)
